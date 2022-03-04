@@ -5,6 +5,6 @@ module.exports = {
   singleQuote: true,
   bracketSpacing: true,
   semi: false,
-  arrowParens: "avoid",
-  endOfLine: "lf",
-};
+  arrowParens: 'avoid',
+  endOfLine: 'lf',
+}
