@@ -3,29 +3,29 @@ import {
   FormLabel,
   FormErrorMessage,
   FormHelperText,
-} from '@chakra-ui/react'
-import { css } from '@emotion/react'
-import React from 'react'
-import { FieldErrors } from 'react-hook-form'
+} from "@chakra-ui/react";
+import { css } from "@emotion/react";
+import React from "react";
+import { FieldErrors } from "react-hook-form";
 
 const FormRow: React.VFC<{
-  id: string
-  label?: string
-  isRequired?: boolean
-  helperText?: string
-  errors?: FieldErrors
-  labelStyle?: 'primary' | 'secondary'
-  children: React.ReactNode
+  id: string;
+  label?: string;
+  isRequired?: boolean;
+  helperText?: string;
+  errors?: FieldErrors;
+  labelStyle?: "primary" | "secondary";
+  children: React.ReactNode;
 }> = ({
-        id,
-        label,
-        isRequired = false,
-        helperText,
-        errors,
-        labelStyle = 'primary',
-        children,
-      }) => {
-  const errorMessage = errors ? errors[id]?.message : undefined
+  id,
+  label,
+  isRequired = false,
+  helperText,
+  errors,
+  labelStyle = "primary",
+  children,
+}) => {
+  const errorMessage = errors ? errors[id]?.message : undefined;
 
   return (
     <>
@@ -33,7 +33,7 @@ const FormRow: React.VFC<{
         id={id}
         marginTop="1rem"
         _first={{
-          marginTop: '0rem',
+          marginTop: "0rem",
         }}
         isRequired={isRequired}
         isInvalid={errorMessage}
@@ -41,7 +41,7 @@ const FormRow: React.VFC<{
         {label && (
           <FormLabel
             htmlFor={id}
-            css={labelStyle === 'secondary' ? styleFormLabelSecondary : ''}
+            css={labelStyle === "secondary" ? styleFormLabelSecondary : ""}
           >
             {label}
           </FormLabel>
@@ -51,15 +51,15 @@ const FormRow: React.VFC<{
         {errorMessage && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
       </FormControl>
     </>
-  )
-}
+  );
+};
 
 const styleFormLabelSecondary = css({
-  fontWeight: 'normal',
-  marginTop: '1rem',
-  paddingLeft: '10px',
-  borderLeft: '5px solid',
+  fontWeight: "normal",
+  marginTop: "1rem",
+  paddingLeft: "10px",
+  borderLeft: "5px solid",
   borderColor: "orange",
-})
+});
 
-export default FormRow
+export default FormRow;
