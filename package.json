@@ -9,7 +9,8 @@
     "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
     "lint:precommit": "eslint 'src/**/*.{ts,tsx}' --max-warnings 0",
     "fmt": "prettier -w -l './**/*.{js,jsx,ts,tsx,json,css,scss}'",
-    "fmt:precommit": "prettier -l './**/*.{js,jsx,ts,tsx,json,css,scss}'"
+    "fmt:precommit": "prettier -l './**/*.{js,jsx,ts,tsx,json,css,scss}'",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": "npm run lint:precommit",
@@ -38,7 +39,7 @@
     "eslint-config-next": "^12.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.25.4",
-    "husky": "^7.0.4",
+    "husky": "^7.0.0",
     "lint-staged": "^12.3.4",
     "prettier": "^2.5.1",
     "typescript": "4.4.3"

@@ -24,7 +24,10 @@ interface Params {
 
 const Login: NextPage = () => {
   const validations = yup.object().shape({
-    email: yup.string().required('メールアドレスを入力してください'),
+    email: yup
+      .string()
+      .email('メールアドレスの形式に沿って入力してください')
+      .required('メールアドレスを入力してください'),
     password: yup.string().required('パスワードを入力してください'),
   })
   const {
