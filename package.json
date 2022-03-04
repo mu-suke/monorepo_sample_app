@@ -6,10 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "lint:precommit": "eslint '{src}/**/*.{ts,tsx}' --max-warnings 0",
+    "lint": "eslint '{src,cypress}/**/*.{ts,tsx}' --fix",
+    "lint:precommit": "eslint 'src/**/*.{ts,tsx}' --max-warnings 0",
     "fmt": "prettier -w -l './**/*.{js,jsx,ts,tsx,json,css,scss}'",
     "fmt:precommit": "prettier -l './**/*.{js,jsx,ts,tsx,json,css,scss}'"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": "npm run lint:precommit",
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss}": "npm run fmt:precommit"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.7.0",
