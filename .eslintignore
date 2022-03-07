@@ -4,3 +4,4 @@ next.config.js
 .next
 out
 infra
+src/pages/api/**/*.ts
