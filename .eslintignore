@@ -4,4 +4,3 @@ next.config.js
 .next
 out
 infra
-src/api-client
