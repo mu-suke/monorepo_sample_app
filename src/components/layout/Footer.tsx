@@ -12,7 +12,7 @@ const Footer = () => {
     >
       <Container paddingY="0rem" paddingTop="1rem">
         <Box textAlign="center">
-          <Text as="small">© Diverse, Inc.</Text>
+          <Text as="small">© mu-suke</Text>
         </Box>
       </Container>
     </Box>
