@@ -1,6 +1,8 @@
 # monorepo-sample-app
 
-## フォルダ階層
+
+
+## ディレクトリ
 
 - `web/`はNext.jsのWebクライアントです
-- `api/`はNext.jsのWebクライアントです
+- `api/`はNestJSのAPIサーバーです
