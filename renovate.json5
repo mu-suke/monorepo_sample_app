@@ -1,0 +1,77 @@
+
+
+{
+  extends: ["config:base"],
+  baseBranches: ["main"],
+  timezone: "Asia/Tokyo",
+  // 月曜日にPRレビューしてマージする想定
+  schedule: ['every weekend'],
+  labels: ["renovate"],
+  rangeStrategy: "pin",
+  reviewers: ["mu-suke"],
+  reviewersSampleSize: 1,
+  // 開発チームの数に依存
+  prConcurrentLimit: 5,
+  packageRules: [
+    {
+      /*
+      cypress/baseはNode.jsのバージョンに対応
+        - Node.jsはActive LTSで固定して手動更新
+      */
+      matchDatasources: ["docker"],
+      matchPackageNames: ["cypress/base"],
+      enabled: false
+    },
+    {
+      /*
+       Node.jsはActive LTSで固定して手動更新
+       ローカル環境のNode更新頻度を減らしたい
+       https://nodejs.org/ja/download/releases/
+       */
+      packageNames: ["node", "npm"],
+      enabled: false
+    },
+    {
+      groupName: "Next.js families",
+      matchPackagePatterns: ["next"],
+    },
+    {
+      groupName: "NestJS families",
+      matchPackagePatterns: ["nestjs"],
+      excludePackageNames: ["@nestjs/swagger"]
+    },
+    {
+      groupName: "Linter families",
+      matchPackagePatterns: [
+        "eslint",
+        "prettier"
+      ],
+    },
+    {
+      groupName: "React families",
+      matchPackagePatterns: [
+        "react",
+        "emotion"
+      ],
+      matchPackageNames: [
+        '@hookform/resolvers'
+      ],
+    },
+    {
+      groupName: "Typescript families",
+      matchPackageNames: [
+        "typescript",
+        "tsconfig-paths",
+        "ts-loader",
+      ],
+    },
+    {
+      groupName: "Sentry families",
+      matchPackagePatterns: ["sentry"],
+    },
+    {
+      groupName: "Jest families",
+      matchPackagePatterns: ["jest"],
+    }
+  ]
+}
