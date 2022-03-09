@@ -1,12 +1,26 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, Req, Res } from '@nestjs/common'
+import { AppService } from './app.service'
+import { Request, Response } from 'express'
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('/')
+  getHello(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ): string {
+    console.log('cookie: ', request.cookies)
+    response.cookie('key', 'value', {
+      signed: false,
+      expires: new Date('2022-12-31'),
+      httpOnly: true,
+      path: '/',
+      domain: 'localhost',
+      secure: true,
+      sameSite: 'lax',
+    })
+    return this.appService.getHello()
   }
 }
