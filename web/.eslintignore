@@ -1,0 +1,7 @@
+node_modules/
+next.config.js
+.gitignore
+.next
+out
+infra
+src/pages/api/**/*.ts
