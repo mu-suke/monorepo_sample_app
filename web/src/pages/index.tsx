@@ -1,10 +1,25 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useDisclosure } from '@chakra-ui/hooks'
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  AlertDialogFooter,
+  AlertDialogCloseButton,
+  Button,
+} from '@chakra-ui/react'
 import axios from 'axios'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useRef } from 'react'
 import styles from '../styles/Home.module.css'
 import type { NextPage } from 'next'
 
 const Home: NextPage = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const cancelRef = useRef<any>()
   return (
     <div className={styles.container}>
       <Head>
@@ -60,6 +75,33 @@ const Home: NextPage = () => {
         >
           API Route
         </button>
+        <button onClick={onOpen}>Alertを表示</button>
+        <AlertDialog
+          motionPreset="slideInBottom"
+          leastDestructiveRef={cancelRef}
+          onClose={onClose}
+          isOpen={isOpen}
+          isCentered
+        >
+          <AlertDialogOverlay />
+
+          <AlertDialogContent>
+            <AlertDialogHeader>Discard Changes?</AlertDialogHeader>
+            <AlertDialogCloseButton />
+            <AlertDialogBody>
+              Are you sure you want to discard all of your notes? 44 words will
+              be deleted.
+            </AlertDialogBody>
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                No
+              </Button>
+              <Button colorScheme="red" ml={3}>
+                Yes
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </main>
 
       <footer className={styles.footer}>

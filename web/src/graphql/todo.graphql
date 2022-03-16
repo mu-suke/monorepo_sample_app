@@ -1,0 +1,3 @@
+query Todo {
+    findAll{id, title, description}
+}
