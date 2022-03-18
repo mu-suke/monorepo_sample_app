@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "husky": "7.0.4",
-    "lint-staged": "12.3.4"
+    "lint-staged": "12.3.7"
   },
   "lint-staged": {
     "web/**/*.{ts,tsx}": "npm run lint:precommit --prefix ./web",
