@@ -9,13 +9,18 @@
     "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
     "lint:precommit": "eslint 'src/**/*.{ts,tsx}' --max-warnings 0",
     "fmt": "prettier -w -l './**/*.{js,jsx,ts,tsx,json,css,scss}'",
-    "fmt:precommit": "prettier -l './**/*.{js,jsx,ts,tsx,json,css,scss}'"
+    "fmt:precommit": "prettier -l './**/*.{js,jsx,ts,tsx,json,css,scss}'",
+    "generate": "graphql-codegen"
   },
   "dependencies": {
-    "@apollo/client": "3.5.10",
     "@chakra-ui/react": "1.7.2",
     "@emotion/react": "11.6.0",
     "@emotion/styled": "11.6.0",
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/typed-document-node": "^2.2.8",
+    "@graphql-codegen/typescript": "^2.4.8",
+    "@graphql-codegen/typescript-operations": "^2.3.5",
+    "@graphql-codegen/typescript-urql": "^3.5.6",
     "@hookform/resolvers": "2.8.8",
     "axios": "^0.25.0",
     "framer-motion": "^4.1.17",
@@ -25,9 +30,14 @@
     "react-dom": "17.0.2",
     "react-hook-form": "7.27.1",
     "tsconfig-paths": "^3.14.0",
+    "urql": "^2.2.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "2.6.2",
+    "@graphql-codegen/introspection": "2.1.1",
+    "@graphql-codegen/typescript": "2.4.8",
+    "@graphql-codegen/typescript-operations": "2.3.5",
     "@types/eslint": "8.4.1",
     "@types/node": "^17.0.21",
     "@types/prettier": "2.4.4",

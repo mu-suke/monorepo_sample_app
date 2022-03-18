@@ -1,12 +1,12 @@
 overwrite: true
 schema: "../api/src/schema.gql"
-documents: "src/**/*.graphql"
+documents: "src/graphql/**/*.graphql"
 generates:
   src/generated/graphql.tsx:
     plugins:
       - "typescript"
       - "typescript-operations"
-      - "typescript-react-apollo"
+      - "typescript-urql" # ここを書き換える
   ./graphql.schema.json:
     plugins:
       - "introspection"

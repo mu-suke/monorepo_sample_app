@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { CatModule } from './cat/cat.module'
-import { DogModule } from './dog/dog.module'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { join } from 'path'
-import { TodoModule } from './todo/todo.module'
-import { HealthCheckResolver } from './modules/health-check/health-check.resolver';
-import { HealthCheckModule } from './modules/health-check/health-check.module';
+import { HealthCheckResolver } from './modules/health-check/health-check.resolver'
+import { HealthCheckModule } from './modules/health-check/health-check.module'
+import { CatModule } from './modules/cat/cat.module'
+import { DogModule } from './modules/dog/dog.module'
+import { TodoModule } from './modules/todo/todo.module'
 
 @Module({
   imports: [

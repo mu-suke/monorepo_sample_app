@@ -1,17 +1,17 @@
 import '@/styles/globals.css'
-import { ApolloProvider } from '@apollo/client'
 import { ChakraProvider } from '@chakra-ui/react'
 import React from 'react'
-import client from '@/utils/apollo-client'
 import type { AppProps } from 'next/app'
+import { urqlClient } from '@/utils/urql-client'
+import { Provider } from 'urql'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ApolloProvider client={client}>
+    <Provider value={urqlClient}>
       <ChakraProvider>
         <Component {...pageProps} />
       </ChakraProvider>
-    </ApolloProvider>
+    </Provider>
   )
 }
 export default MyApp

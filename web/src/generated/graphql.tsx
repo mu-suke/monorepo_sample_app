@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client'
-import * as Apollo from '@apollo/client'
+import gql from 'graphql-tag'
+import * as Urql from 'urql'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -11,7 +11,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>
 }
-const defaultOptions = {} as const
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -23,10 +23,16 @@ export type Scalars = {
   DateTime: any
 }
 
+export type HealthCheck = {
+  __typename?: 'HealthCheck'
+  message: Scalars['String']
+}
+
 export type Query = {
   __typename?: 'Query'
   findAll: Array<Maybe<Todo>>
   findOneById: Todo
+  healthCheck: HealthCheck
 }
 
 export type QueryFindOneByIdArgs = {
@@ -49,6 +55,13 @@ export enum TodoStatus {
   New = 'NEW',
 }
 
+export type HealthCheckQueryVariables = Exact<{ [key: string]: never }>
+
+export type HealthCheckQuery = {
+  __typename?: 'Query'
+  healthCheck: { __typename?: 'HealthCheck'; message: string }
+}
+
 export type TodoQueryVariables = Exact<{ [key: string]: never }>
 
 export type TodoQuery = {
@@ -61,6 +74,23 @@ export type TodoQuery = {
   } | null>
 }
 
+export const HealthCheckDocument = gql`
+  query HealthCheck {
+    healthCheck {
+      message
+    }
+  }
+`
+
+export function useHealthCheckQuery(
+  options?: Omit<Urql.UseQueryArgs<HealthCheckQueryVariables>, 'query'>
+) {
+  return Urql.useQuery<HealthCheckQuery>({
+    query: HealthCheckDocument,
+    ...options,
+  })
+}
+
 export const TodoDocument = gql`
   query Todo {
     findAll {
@@ -71,36 +101,8 @@ export const TodoDocument = gql`
   }
 `
 
-/**
- * __useTodoQuery__
- *
- * To run a query within a React component, call `useTodoQuery` and pass it any options that fit your needs.
- * When your component renders, `useTodoQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTodoQuery({
- *   variables: {
- *   },
- * });
- */
 export function useTodoQuery(
-  baseOptions?: Apollo.QueryHookOptions<TodoQuery, TodoQueryVariables>
+  options?: Omit<Urql.UseQueryArgs<TodoQueryVariables>, 'query'>
 ) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<TodoQuery, TodoQueryVariables>(TodoDocument, options)
+  return Urql.useQuery<TodoQuery>({ query: TodoDocument, ...options })
 }
-export function useTodoLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<TodoQuery, TodoQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<TodoQuery, TodoQueryVariables>(
-    TodoDocument,
-    options
-  )
-}
-export type TodoQueryHookResult = ReturnType<typeof useTodoQuery>
-export type TodoLazyQueryHookResult = ReturnType<typeof useTodoLazyQuery>
-export type TodoQueryResult = Apollo.QueryResult<TodoQuery, TodoQueryVariables>
