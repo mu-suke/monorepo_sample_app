@@ -3,6 +3,7 @@
     "node": "16.14.0"
   },
   "scripts": {
+    "lint-staged": "lint-staged",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -14,5 +15,10 @@
     "api/**/*.ts": "npm run lint:precommit --prefix ./api",
     "web/**/*.{js,jsx,ts,tsx,json,css,scss}": "npm run fmt:precommit --prefix ./web",
     "api/**/*.{js,jsx,ts,tsx,json,css,scss}": "npm run fmt:precommit --prefix ./api"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
+    }
   }
 }
