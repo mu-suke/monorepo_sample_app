@@ -1,4 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common'
+import { HealthCheckResolver } from './health-check.resolver'
 
-@Module({})
+@Module({
+  providers: [HealthCheckResolver],
+})
 export class HealthCheckModule {}
