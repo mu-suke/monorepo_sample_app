@@ -7,6 +7,8 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { join } from 'path'
 import { TodoModule } from './todo/todo.module'
+import { HealthCheckResolver } from './modules/health-check/health-check.resolver';
+import { HealthCheckModule } from './modules/health-check/health-check.module';
 
 @Module({
   imports: [
@@ -18,8 +20,9 @@ import { TodoModule } from './todo/todo.module'
     CatModule,
     DogModule,
     TodoModule,
+    HealthCheckModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, HealthCheckResolver],
 })
 export class AppModule {}
