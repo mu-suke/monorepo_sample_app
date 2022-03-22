@@ -4,6 +4,7 @@ import { Text } from '@chakra-ui/react'
 import { useHealthCheckQuery } from '@/generated/graphql'
 
 const HealthCheck: NextPage = () => {
+  // HealthCheck APiの呼び出し
   const [result] = useHealthCheckQuery()
 
   if (!result.data) {

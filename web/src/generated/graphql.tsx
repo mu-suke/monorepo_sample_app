@@ -90,7 +90,6 @@ export function useHealthCheckQuery(
     ...options,
   })
 }
-
 export const TodoDocument = gql`
   query Todo {
     findAll {
