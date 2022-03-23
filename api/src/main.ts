@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core'
 import * as cookieParser from 'cookie-parser'
 import * as admin from 'firebase-admin'
 import { ServiceAccount } from 'firebase-admin'
-import serviceAccount from '../bin/key/firebase-service-account.json'
+import serviceAccount from '../firebase-service-account.json'
 import { AppModule } from './app.module'
 
 async function bootstrap() {
