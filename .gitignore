@@ -24,3 +24,6 @@ logs
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Service Account Key
+bin/key/
