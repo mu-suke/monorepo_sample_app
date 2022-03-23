@@ -1,9 +1,9 @@
 import '@/styles/globals.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import React from 'react'
-import type { AppProps } from 'next/app'
-import { urqlClient } from '@/utils/urql-client'
 import { Provider } from 'urql'
+import { urqlClient } from '@/utils/urql-client'
+import type { AppProps } from 'next/app'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
