@@ -1,6 +1,6 @@
+import { Text } from '@chakra-ui/react'
 import { NextPage } from 'next'
 import Layout from '@/components/layout'
-import { Text } from '@chakra-ui/react'
 import { useHealthCheckQuery } from '@/generated/graphql'
 
 const HealthCheck: NextPage = () => {
