@@ -1,14 +1,13 @@
-import { createUserWithEmailAndPassword, getAuth } from '@firebase/auth'
+import { createUserWithEmailAndPassword } from '@firebase/auth'
 import { NextPage } from 'next'
+import { auth } from '@/libs/firebase'
 import SignupForm from '@/presentationals/signup/SignupForm'
 import { SignupParams } from '@/presentationals/signup/types/signupParams'
 
 const Signup: NextPage = () => {
   const apiSignup = (params: SignupParams) => {
-    const auth = getAuth()
     createUserWithEmailAndPassword(auth, params.email, params.password)
       .then(userCredential => {
-        // Signed in
         const user = userCredential.user
         console.log('user: ', user)
       })
