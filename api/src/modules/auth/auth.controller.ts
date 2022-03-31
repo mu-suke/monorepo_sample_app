@@ -9,7 +9,7 @@ import { FirebaseAuthDecodedUser } from '@/modules/auth/firebase-auth.strategy'
 export class AuthController {
   constructor(
     private readonly authSignupService: AuthSignupService,
-    private readonly authLoginService: AuthLoginService,
+    private readonly authLoginService: AuthLoginService
   ) {}
   @UseGuards(AuthGuard('firebase-auth'))
   @Post('/signup')

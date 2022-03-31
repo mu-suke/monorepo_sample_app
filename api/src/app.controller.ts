@@ -9,7 +9,7 @@ export class AppController {
   @Get('/')
   getHello(
     @Req() request: Request,
-    @Res({ passthrough: true }) response: Response,
+    @Res({ passthrough: true }) response: Response
   ): string {
     console.log('cookie: ', request.cookies)
     response.cookie('key', 'value', {

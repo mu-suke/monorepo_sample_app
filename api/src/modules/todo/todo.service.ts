@@ -23,7 +23,7 @@ export class TodoService {
   }
   // idを元に一件取得のメソッド
   findOneById(id: string): Todo {
-    const result = this.todos.find((todo) => id === todo.id)
+    const result = this.todos.find(todo => id === todo.id)
     if (!result) {
       // なかったら404エラーを返す。ビルトインのエラーも豊富にあってエラー処理も結構楽
       // https://docs.nestjs.com/exception-filters#built-in-http-exceptions

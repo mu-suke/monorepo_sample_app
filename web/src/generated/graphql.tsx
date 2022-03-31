@@ -23,6 +23,16 @@ export type Scalars = {
   DateTime: any
 }
 
+export type Auth = {
+  __typename?: 'Auth'
+  userId: Scalars['String']
+}
+
+export type AuthTest = {
+  __typename?: 'AuthTest'
+  message: Scalars['String']
+}
+
 export type HealthCheck = {
   __typename?: 'HealthCheck'
   message: Scalars['String']
@@ -33,6 +43,8 @@ export type Query = {
   findAll: Array<Maybe<Todo>>
   findOneById: Todo
   healthCheck: HealthCheck
+  login: Auth
+  test: AuthTest
 }
 
 export type QueryFindOneByIdArgs = {

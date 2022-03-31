@@ -20,7 +20,7 @@ export const StrategyName = 'firebase-auth'
 @Injectable()
 export class FirebaseAuthStrategy extends PassportStrategy(
   Strategy,
-  StrategyName,
+  StrategyName
 ) {
   private readonly checkRevoked = false
   private readonly logger = new Logger(FirebaseAuthStrategy.name)
