@@ -5,8 +5,8 @@ query Todo {
   }
 }
 
-mutation AddTodo {
-  addTodo(newTodo: { title: "mutation test", description: "heyhey!" }) {
+mutation AddTodo($newTodo: NewTodo!) {
+  addTodo(newTodo: $newTodo) {
     title
     description
   }

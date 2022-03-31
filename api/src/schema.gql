@@ -19,9 +19,17 @@ type HealthCheck {
   message: String!
 }
 
+type Mutation {
+  addTodo(newTodo: NewTodo!): Todo!
+}
+
+input NewTodo {
+  description: String!
+  title: String!
+}
+
 type Query {
   findAll: [Todo]!
-  findOneById(id: ID!): Todo!
   healthCheck: HealthCheck!
   login: Auth!
   test: AuthTest!
@@ -30,7 +38,6 @@ type Query {
 type Todo {
   createdAt: DateTime!
   description: String
-  id: ID!
   status: TodoStatus!
   title: String!
   updatedAt: DateTime!
