@@ -3,4 +3,4 @@
 out
 infra
 graphql.schema.json
-web/.prettierignore
+src/generated/*
