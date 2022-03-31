@@ -1,0 +1,13 @@
+query Todo {
+  findAll {
+    title
+    description
+  }
+}
+
+mutation AddTodo {
+  addTodo(newTodo: { title: "mutation test", description: "heyhey!" }) {
+    title
+    description
+  }
+}
