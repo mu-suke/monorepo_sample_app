@@ -1,5 +1,5 @@
-import { Args, ID, Query, Resolver } from '@nestjs/graphql'
-import { Todo } from './models/todo.models'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { NewTodo, Todo } from './models/todo.models'
 import { TodoService } from './todo.service'
 
 // Resolverデコレータでresolverを定義
@@ -16,11 +16,8 @@ export class TodoResolver {
     return this.todoService.findAll()
   }
 
-  @Query(() => Todo)
-  // Queryに引数がある場合はArgsデコレータで定義。
-  // 第一引数に引数の名前、第二引数に型を指定。
-  // schema上の型定義は findOneById(id: ID!): Todo! となる
-  findOneById(@Args('id', { type: () => ID }) id: string) {
-    return this.todoService.findOneById(id)
+  @Mutation(() => Todo)
+  addTodo(@Args('newTodo') newTodo: NewTodo) {
+    return this.todoService.create(newTodo)
   }
 }

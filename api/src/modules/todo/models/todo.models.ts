@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql'
+import { Field, InputType, ObjectType, registerEnumType } from '@nestjs/graphql'
 
 export enum TodoStatus {
   NEW,
@@ -14,11 +14,6 @@ registerEnumType(TodoStatus, {
 // ObjectTypeデコレータを使用することで、定義したmodelを元にschemaが自動生成される
 @ObjectType()
 export class Todo {
-  // schame上、ID型にしたいため、ReturnTypeFuncを引数に与える
-  // ReturnTypeFuncを引数に与えない場合、idの型はString型になる
-  @Field(() => ID)
-  id: string
-
   // ここはString型で良いのでReturnTypeFuncを引数に与えない
   @Field()
   title: string
@@ -37,4 +32,13 @@ export class Todo {
 
   @Field()
   updatedAt: Date
+}
+
+@InputType()
+export class NewTodo {
+  @Field()
+  title: string
+
+  @Field()
+  description: string
 }

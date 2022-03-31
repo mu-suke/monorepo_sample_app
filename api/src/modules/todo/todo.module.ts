@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common'
-import { TodoRepository } from './todo.repository'
-import { TodoResolver } from './todo.resolver'
-import { TodoService } from './todo.service'
+import { TodoRepository } from '@/modules/todo/todo.repository'
+import { TodoResolver } from '@/modules/todo/todo.resolver'
+import { TodoService } from '@/modules/todo/todo.service'
 
 @Module({
-  imports: [TodoRepository],
   providers: [TodoService, TodoResolver, TodoRepository],
 })
 export class TodoModule {}
