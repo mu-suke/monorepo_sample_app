@@ -6,16 +6,20 @@ import { useTodoQuery } from '@/generated/graphql'
 const Todo: NextPage = () => {
   const [result] = useTodoQuery()
 
-  if (!result.data) {
+  if (result.error) {
     return <Text>Error Occurred</Text>
   }
 
-  const todos = result.data.findAll
+  if (result.fetching) {
+    return <Text>Loading...</Text>
+  }
+
+  const todos = result.data?.findAll
   return (
     <>
       <Layout>
         <UnorderedList>
-          {todos.map((todo, index) => {
+          {todos?.map((todo, index) => {
             return <ListItem key={index}>{todo?.title}</ListItem>
           })}
         </UnorderedList>
