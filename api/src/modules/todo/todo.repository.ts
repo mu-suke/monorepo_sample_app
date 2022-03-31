@@ -14,7 +14,6 @@ export class TodoRepository {
       .then(result =>
         result.docs.map(todo => {
           return {
-            id: todo.id,
             title: todo.data().title,
             description: todo.data().description,
             createdAt: todo.data().createdAt.toDate(),
@@ -24,5 +23,23 @@ export class TodoRepository {
         })
       )
     return todos
+  }
+
+  async create(todo: Todo) {
+    return this.firebaseService
+      .firestore()
+      .collection('todos')
+      .add(todo)
+      .then(data => {
+        return data.get().then(todo => {
+          return {
+            title: todo.data()?.title,
+            description: todo.data()?.description,
+            createdAt: todo.data()?.createdAt.toDate(),
+            updatedAt: todo.data()?.updatedAt.toDate(),
+            status: todo.data()?.status,
+          }
+        })
+      })
   }
 }
