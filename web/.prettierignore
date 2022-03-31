@@ -2,3 +2,5 @@
 .next
 out
 infra
+graphql.schema.json
+web/.prettierignore

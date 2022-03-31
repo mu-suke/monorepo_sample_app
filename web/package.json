@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
     "lint:precommit": "eslint 'src/**/*.{ts,tsx}' --max-warnings 0",
-    "fmt": "prettier -w -l './**/*.{js,jsx,ts,tsx,json,css,scss}'",
-    "fmt:precommit": "prettier -l './**/*.{js,jsx,ts,tsx,json,css,scss}'",
+    "fmt": "prettier -w -l './**/*.{js,jsx,ts,tsx,json,gql}'",
+    "fmt:precommit": "prettier -l './**/*.{js,jsx,ts,tsx,json,gql}'",
     "generate": "graphql-codegen"
   },
   "dependencies": {
