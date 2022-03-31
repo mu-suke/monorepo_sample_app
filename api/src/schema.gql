@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Auth {
+  userId: String!
+}
+
+type AuthTest {
+  message: String!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -15,6 +23,8 @@ type Query {
   findAll: [Todo]!
   findOneById(id: ID!): Todo!
   healthCheck: HealthCheck!
+  login: Auth!
+  test: AuthTest!
 }
 
 type Todo {

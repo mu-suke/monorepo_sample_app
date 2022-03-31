@@ -2,14 +2,14 @@ import { join } from 'path'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
-import { CatModule } from './modules/cat/cat.module'
-import { DogModule } from './modules/dog/dog.module'
-import { HealthCheckModule } from './modules/health-check/health-check.module'
-import { HealthCheckResolver } from './modules/health-check/health-check.resolver'
-import { TodoModule } from './modules/todo/todo.module'
-
+import { AppController } from '@/app.controller'
+import { AppService } from '@/app.service'
+import { FirebaseModule } from '@/libs/firebase/firebase.module'
+import { AuthModule } from '@/modules/auth/auth.module'
+import { CatModule } from '@/modules/cat/cat.module'
+import { DogModule } from '@/modules/dog/dog.module'
+import { HealthCheckModule } from '@/modules/health-check/health-check.module'
+import { TodoModule } from '@/modules/todo/todo.module'
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -21,8 +21,10 @@ import { TodoModule } from './modules/todo/todo.module'
     DogModule,
     TodoModule,
     HealthCheckModule,
+    FirebaseModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, HealthCheckResolver],
+  providers: [AppService],
 })
 export class AppModule {}
