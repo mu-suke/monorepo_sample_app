@@ -1,5 +1,5 @@
 import { initializeApp } from '@firebase/app'
-import { getAuth } from '@firebase/auth'
+import { getAuth, User } from '@firebase/auth'
 
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -13,3 +13,18 @@ const config = {
 
 const app = initializeApp(config)
 export const auth = getAuth(app)
+
+export const getAuthUser = (): Promise<User> => {
+  return new Promise(resolve => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (!user) {
+        return
+      }
+      // user オブジェクトを resolve
+      resolve(user)
+
+      // 登録解除
+      unsubscribe()
+    })
+  })
+}

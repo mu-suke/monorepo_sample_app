@@ -22,11 +22,6 @@ export type Auth = {
   userId: Scalars['String'];
 };
 
-export type AuthTest = {
-  __typename?: 'AuthTest';
-  message: Scalars['String'];
-};
-
 export type HealthCheck = {
   __typename?: 'HealthCheck';
   message: Scalars['String'];
@@ -35,6 +30,7 @@ export type HealthCheck = {
 export type Mutation = {
   __typename?: 'Mutation';
   addTodo: Todo;
+  login: Auth;
 };
 
 
@@ -51,8 +47,6 @@ export type Query = {
   __typename?: 'Query';
   findAll: Array<Maybe<Todo>>;
   healthCheck: HealthCheck;
-  login: Auth;
-  test: AuthTest;
 };
 
 export type Todo = {
@@ -69,6 +63,11 @@ export enum TodoStatus {
   InProgress = 'IN_PROGRESS',
   New = 'NEW'
 }
+
+export type LoginMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Auth', userId: string } };
 
 export type HealthCheckQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -88,6 +87,17 @@ export type AddTodoMutationVariables = Exact<{
 export type AddTodoMutation = { __typename?: 'Mutation', addTodo: { __typename?: 'Todo', title: string, description?: string | null } };
 
 
+export const LoginDocument = gql`
+    mutation Login {
+  login {
+    userId
+  }
+}
+    `;
+
+export function useLoginMutation() {
+  return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
+};
 export const HealthCheckDocument = gql`
     query HealthCheck {
   healthCheck {
