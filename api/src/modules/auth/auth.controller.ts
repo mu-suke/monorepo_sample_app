@@ -1,8 +1,8 @@
 import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { SignupBody } from './dto/signup-body.dto'
-import { AuthLoginService } from './service/auth-login.service'
-import { AuthSignupService } from './service/auth-signup.service'
+import { AuthLoginService } from './services/auth-login.service'
+import { AuthSignupService } from './services/auth-signup.service'
 import { FirebaseAuthDecodedUser } from '@/modules/auth/firebase-auth.strategy'
 
 @Controller('auth')
