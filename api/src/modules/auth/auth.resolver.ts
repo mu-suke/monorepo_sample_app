@@ -15,7 +15,6 @@ export class AuthResolver {
   }
 
   @Query(() => AuthTest)
-  @UseGuards(AuthGuard('jwt'))
   test() {
     return new AuthTest('test')
   }
