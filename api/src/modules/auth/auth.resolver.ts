@@ -1,21 +1,19 @@
-import { Request, UseGuards } from '@nestjs/common'
-import { Query, Resolver } from '@nestjs/graphql'
-import { AuthGuard } from '@nestjs/passport'
-import { Auth, AuthTest } from './models/auth.model'
+import { UseGuards } from '@nestjs/common'
+import { Mutation, Resolver } from '@nestjs/graphql'
 import { AuthLoginService } from './service/auth-login.service'
+import { CurrentUser } from '@/decorators/current-user.decorator'
+import { GqlFirebaseAuthGuard } from '@/guards/gql-firebase-auth.guard'
+import { FirebaseAuthDecodedUser } from '@/modules/auth/firebase-auth.strategy'
+import { Auth } from '@/modules/auth/models/auth-signup.model'
 
 @Resolver()
 export class AuthResolver {
   constructor(private readonly authLoginService: AuthLoginService) {}
-  @Query(() => Auth)
-  @UseGuards(AuthGuard('firebase'))
-  async login(@Request() req: { userId: string }) {
-    const userId = req.userId
-    return this.authLoginService.login(userId)
-  }
 
-  @Query(() => AuthTest)
-  test() {
-    return new AuthTest('test')
+  @Mutation(() => Auth)
+  @UseGuards(GqlFirebaseAuthGuard)
+  async login(@CurrentUser() user: FirebaseAuthDecodedUser) {
+    const userId = user.uid
+    return this.authLoginService.login(userId)
   }
 }

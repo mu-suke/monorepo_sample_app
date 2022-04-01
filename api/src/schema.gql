@@ -6,10 +6,6 @@ type Auth {
   userId: String!
 }
 
-type AuthTest {
-  message: String!
-}
-
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -21,6 +17,7 @@ type HealthCheck {
 
 type Mutation {
   addTodo(newTodo: NewTodo!): Todo!
+  login: Auth!
 }
 
 input NewTodo {
@@ -31,8 +28,6 @@ input NewTodo {
 type Query {
   findAll: [Todo]!
   healthCheck: HealthCheck!
-  login: Auth!
-  test: AuthTest!
 }
 
 type Todo {

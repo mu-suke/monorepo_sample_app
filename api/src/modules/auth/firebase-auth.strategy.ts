@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
-import { FirebaseError } from 'firebase-admin'
+import { auth, FirebaseError } from 'firebase-admin'
 import * as firebaseAdmin from 'firebase-admin'
 import { Strategy } from 'passport-http-bearer'
 import { FirebaseService } from '@/libs/firebase/firebase.service'
@@ -30,11 +30,11 @@ export class FirebaseAuthStrategy extends PassportStrategy(
   }
 
   /**
-   * @UseGuards(JwtAuthGuard) から @AuthenticatedUser() に渡す
+   * @UseGuards(FirebaseAuthGuard) から @AuthenticatedUser() に渡す
    *
    * @see https://github.com/mikenicholson/passport-jwt/blob/master/lib/strategy.js#L87-L90
    */
-  async validate(jwtToken: string) {
+  async validate(jwtToken: string): Promise<auth.UserRecord> {
     const payload = await this.authorize(jwtToken)
     const user = await this.firebase.getAuth().getUser(payload.uid)
     if (user.disabled) {
