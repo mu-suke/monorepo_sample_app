@@ -6,6 +6,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   app.use(cookieParser())
 
+  // ローカルで試せるように一時的にCORSを許可する
+  app.enableCors()
   await app.listen(8000)
 }
 bootstrap()
