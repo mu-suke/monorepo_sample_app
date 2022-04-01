@@ -2,8 +2,6 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { NewTodo, Todo } from './models/todo.models'
 import { TodoService } from './todo.service'
 
-// Resolverデコレータでresolverを定義
-// https://docs.nestjs.com/graphql/resolvers#code-first-resolver
 @Resolver()
 export class TodoResolver {
   constructor(private todoService: TodoService) {}

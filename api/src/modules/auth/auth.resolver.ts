@@ -4,7 +4,7 @@ import { AuthLoginService } from './service/auth-login.service'
 import { CurrentUser } from '@/decorators/current-user.decorator'
 import { GqlFirebaseAuthGuard } from '@/guards/gql-firebase-auth.guard'
 import { FirebaseAuthDecodedUser } from '@/modules/auth/firebase-auth.strategy'
-import { Auth } from '@/modules/auth/models/auth-signup.model'
+import { Auth } from '@/modules/auth/models/auth-login.model'
 
 @Resolver()
 export class AuthResolver {
