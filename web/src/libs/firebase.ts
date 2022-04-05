@@ -20,10 +20,8 @@ export const getAuthUser = (): Promise<User> => {
       if (!user) {
         return
       }
-      // user オブジェクトを resolve
       resolve(user)
 
-      // 登録解除
       unsubscribe()
     })
   })
