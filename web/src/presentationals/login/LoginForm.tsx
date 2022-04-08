@@ -19,7 +19,7 @@ const LoginForm: React.VFC<{ apiLogin: (params: LoginParams) => void }> = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginParams>({
     resolver: yupResolver(validations),
   })
@@ -45,14 +45,7 @@ const LoginForm: React.VFC<{ apiLogin: (params: LoginParams) => void }> = ({
           <Checkbox>Remember me</Checkbox>
           <Link color={'blue.400'}>Forgot password?</Link>
         </Stack>
-        <Button
-          type={'submit'}
-          bg={'blue.400'}
-          color={'white'}
-          _hover={{
-            bg: 'blue.500',
-          }}
-        >
+        <Button type={'submit'} colorScheme={'blue'} isLoading={isSubmitting}>
           Sign in
         </Button>
       </Stack>
