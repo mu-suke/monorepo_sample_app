@@ -14,6 +14,7 @@ import axios from 'axios'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRef } from 'react'
+import { auth } from '@/libs/firebase'
 import styles from '../styles/Home.module.css'
 import type { NextPage } from 'next'
 
@@ -75,7 +76,15 @@ const Home: NextPage = () => {
         >
           API Route
         </button>
+
         <button onClick={onOpen}>Alertを表示</button>
+        <Button
+          onClick={async () => {
+            await auth.signOut()
+          }}
+        >
+          ログアウト
+        </Button>
         <AlertDialog
           motionPreset="slideInBottom"
           leastDestructiveRef={cancelRef}
