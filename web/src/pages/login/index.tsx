@@ -7,30 +7,21 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react'
+import { signInWithEmailAndPassword } from '@firebase/auth'
 import { NextPage } from 'next'
 import React from 'react'
-import { useLoginMutation } from '@/generated/graphql'
+import { auth } from '@/libs/firebase'
 import LoginForm from '@/presentationals/login/LoginForm'
 import { LoginParams } from '@/presentationals/login/types/LoginParams'
 
 const Login: NextPage = () => {
-  const [, login] = useLoginMutation()
-  const apiLogin = (params: LoginParams) => {
-    // signInWithEmailAndPassword(auth, params.email, params.password)
-    //   .then(r => {
-    //     console.log('login response: ', r)
-    //   })
-    //   .catch(e => {
-    //     console.error('login error: ', e)
-    //   })
-    console.log('params: ', params)
-    login()
-      .then(r => {
-        console.log('login response: ', r)
-      })
-      .catch(e => {
-        console.error('login error: ', e)
-      })
+  const apiLogin = async (params: LoginParams) => {
+    try {
+      await signInWithEmailAndPassword(auth, params.email, params.password)
+      console.log('success')
+    } catch (e) {
+      console.log('error: ', e)
+    }
   }
 
   return (
