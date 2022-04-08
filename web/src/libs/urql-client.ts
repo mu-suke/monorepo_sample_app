@@ -1,10 +1,6 @@
 import { authExchange } from '@urql/exchange-auth'
 import { cacheExchange, createClient, dedupExchange, fetchExchange } from 'urql'
-import {
-  addAuthToOperation,
-  didAuthError,
-  getAuth,
-} from '@/libs/urql-exchange-auth'
+import { authConfig } from '@/libs/urql-exchange-auth'
 
 export const urqlClient = createClient({
   url: 'http://localhost:8000/graphql',
@@ -12,11 +8,7 @@ export const urqlClient = createClient({
   exchanges: [
     dedupExchange,
     cacheExchange,
-    authExchange({
-      addAuthToOperation,
-      getAuth,
-      didAuthError,
-    }),
+    authExchange(authConfig),
     fetchExchange,
   ],
 })

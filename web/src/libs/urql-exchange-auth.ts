@@ -1,26 +1,30 @@
+import { IdTokenResult } from '@firebase/auth'
 import { AuthConfig } from '@urql/exchange-auth'
 import { makeOperation } from 'urql'
-import { getAuthUser } from '@/libs/firebase'
+import { auth } from '@/libs/firebase'
 
-type AuthToken = {
+type AuthState = {
   token: string
+  result: IdTokenResult
 }
 
-export const getAuth: AuthConfig<AuthToken>['getAuth'] = async () => {
-  try {
-    const user = await getAuthUser()
-    const token = await user.getIdToken()
-
-    return {
-      token,
+export const authConfig: AuthConfig<AuthState> = {
+  getAuth: async () => {
+    const tokenResult = await auth.currentUser?.getIdTokenResult()
+    return tokenResult
+      ? { token: tokenResult.token, result: tokenResult }
+      : null
+  },
+  willAuthError: ({ authState }) => {
+    if (authState?.result?.expirationTime) {
+      const expirationDate = new Date(authState.result.expirationTime)
+      console.log('⚠️ expirationDate: ', expirationDate)
+      return expirationDate < new Date()
     }
-  } catch {
-    return null
-  }
-}
 
-export const addAuthToOperation: AuthConfig<AuthToken>['addAuthToOperation'] =
-  ({ authState, operation }) => {
+    return !authState || !authState.token
+  },
+  addAuthToOperation: ({ authState, operation }) => {
     if (!authState || !authState.token) {
       return operation
     }
@@ -36,14 +40,9 @@ export const addAuthToOperation: AuthConfig<AuthToken>['addAuthToOperation'] =
         ...fetchOptions,
         headers: {
           ...fetchOptions.headers,
-          Authorization: `Bearer ${authState.token}`,
+          Authorization: 'Bearer ' + authState.token,
         },
       },
     })
-  }
-
-export const didAuthError: AuthConfig<AuthToken>['didAuthError'] = ({
-  error,
-}) => {
-  return error.response.status === 401
+  },
 }
