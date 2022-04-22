@@ -10,7 +10,7 @@
     "lint:precommit": "eslint '{src,cypress}/**/*.{ts,tsx}' --max-warnings 0",
     "fmt": "prettier -w -l './**/*.{js,jsx,ts,tsx,json,gql}'",
     "fmt:precommit": "prettier -l './**/*.{js,jsx,ts,tsx,json,gql}'",
-    "generate": "graphql-codegen"
+    "gen:graphql": "graphql-codegen"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.7",

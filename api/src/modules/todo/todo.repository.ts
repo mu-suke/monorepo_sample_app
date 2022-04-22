@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { FirebaseService } from '@/libs/firebase/firebase.service'
-import { Todo } from '@/modules/todo/models/todo.models'
+import { TodoOutput } from '@/modules/todo/models/todo.models'
 
 @Injectable()
 export class TodoRepository {
   constructor(private readonly firebaseService: FirebaseService) {}
 
   async findAll() {
-    const todos: Todo[] = await this.firebaseService
+    const todos: TodoOutput[] = await this.firebaseService
       .firestore()
       .collection('todos')
       .get()
@@ -25,7 +25,7 @@ export class TodoRepository {
     return todos
   }
 
-  async create(todo: Todo) {
+  async create(todo: TodoOutput) {
     return this.firebaseService
       .firestore()
       .collection('todos')

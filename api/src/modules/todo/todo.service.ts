@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common'
-import { NewTodo, Todo, TodoStatus } from './models/todo.models'
+import {
+  NewTodoInput,
+  TodoOutput,
+  TodosInput,
+  TodoStatus,
+} from './models/todo.models'
 import { TodoRepository } from './todo.repository'
 
 @Injectable()
@@ -7,12 +12,13 @@ export class TodoService {
   constructor(private readonly todoRepository: TodoRepository) {}
 
   // 全件取得のメソッド
-  async findAll() {
-    return await this.todoRepository.findAll()
+  async findAll(todosInput: TodosInput) {
+    const todosRaw = await this.todoRepository.findAll()
+    return todosRaw.slice(todosInput.offset, todosInput.limit)
   }
 
-  async create(data: NewTodo) {
-    const todo: Todo = {
+  async create(data: NewTodoInput) {
+    const todo: TodoOutput = {
       ...data,
       status: TodoStatus.NEW,
       createdAt: new Date(),

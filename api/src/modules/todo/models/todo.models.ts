@@ -1,4 +1,5 @@
 import { Field, InputType, ObjectType, registerEnumType } from '@nestjs/graphql'
+import { PaginationArgs } from '@/models/pagination/pagination'
 
 export enum TodoStatus {
   NEW,
@@ -13,7 +14,7 @@ registerEnumType(TodoStatus, {
 
 // ObjectTypeデコレータを使用することで、定義したmodelを元にschemaが自動生成される
 @ObjectType()
-export class Todo {
+export class TodoOutput {
   // ここはString型で良いのでReturnTypeFuncを引数に与えない
   @Field()
   title: string
@@ -35,10 +36,13 @@ export class Todo {
 }
 
 @InputType()
-export class NewTodo {
+export class NewTodoInput {
   @Field()
   title: string
 
   @Field()
   description: string
 }
+
+@InputType()
+export class TodosInput extends PaginationArgs {}
