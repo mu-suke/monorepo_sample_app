@@ -4,7 +4,9 @@ import Layout from '@/components/layout'
 import { useTodoQuery } from '@/generated/graphql'
 
 const Todo: NextPage = () => {
-  const [result] = useTodoQuery()
+  const [result] = useTodoQuery({
+    variables: { todos: { offset: 4, limit: 10 } },
+  })
 
   if (result.error) {
     return <Text>Error Occurred</Text>

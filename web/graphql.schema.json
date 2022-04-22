@@ -56,6 +56,16 @@
         "possibleTypes": null
       },
       {
+        "kind": "SCALAR",
+        "name": "Float",
+        "description": "The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "HealthCheck",
         "description": null,
@@ -99,7 +109,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "NewTodo",
+                    "name": "NewTodoInput",
                     "ofType": null
                   }
                 },
@@ -113,7 +123,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Todo",
+                "name": "TodoOutput",
                 "ofType": null
               }
             },
@@ -144,7 +154,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "NewTodo",
+        "name": "NewTodoInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -193,7 +203,24 @@
           {
             "name": "findAll",
             "description": null,
-            "args": [],
+            "args": [
+              {
+                "name": "todos",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "TodosInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -202,7 +229,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "Todo",
+                  "name": "TodoOutput",
                   "ofType": null
                 }
               }
@@ -244,7 +271,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Todo",
+        "name": "TodoOutput",
         "description": null,
         "fields": [
           {
@@ -356,6 +383,41 @@
             "deprecationReason": null
           }
         ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TodosInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "limit",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "defaultValue": "5",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "offset",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "defaultValue": "0",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
         "possibleTypes": null
       },
       {

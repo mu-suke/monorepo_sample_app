@@ -16,21 +16,21 @@ type HealthCheck {
 }
 
 type Mutation {
-  addTodo(newTodo: NewTodo!): Todo!
+  addTodo(newTodo: NewTodoInput!): TodoOutput!
   login: Auth!
 }
 
-input NewTodo {
+input NewTodoInput {
   description: String!
   title: String!
 }
 
 type Query {
-  findAll: [Todo]!
+  findAll(todos: TodosInput!): [TodoOutput]!
   healthCheck: HealthCheck!
 }
 
-type Todo {
+type TodoOutput {
   createdAt: DateTime!
   description: String
   status: TodoStatus!
@@ -42,4 +42,9 @@ enum TodoStatus {
   COMPLETE
   IN_PROGRESS
   NEW
+}
+
+input TodosInput {
+  limit: Float = 5
+  offset: Float = 0
 }

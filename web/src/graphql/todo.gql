@@ -1,11 +1,11 @@
-query Todo {
-  findAll {
+query Todo($todos: TodosInput!) {
+  findAll(todos: $todos) {
     title
     description
   }
 }
 
-mutation AddTodo($newTodo: NewTodo!) {
+mutation AddTodo($newTodo: NewTodoInput!) {
   addTodo(newTodo: $newTodo) {
     title
     description
