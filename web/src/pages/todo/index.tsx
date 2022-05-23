@@ -1,4 +1,12 @@
-import { ListItem, Text, UnorderedList } from '@chakra-ui/react'
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Text,
+} from '@chakra-ui/react'
 import { NextPage } from 'next'
 import Layout from '@/components/layout'
 import { useTodoQuery } from '@/generated/graphql'
@@ -18,11 +26,23 @@ const Todo: NextPage = () => {
   return (
     <>
       <Layout>
-        <UnorderedList>
+        <Accordion allowMultiple>
           {todos?.map((todo, index) => {
-            return <ListItem key={index}>{todo?.title}</ListItem>
+            return (
+              <>
+                <AccordionItem>
+                  <AccordionButton key={index}>
+                    <Box flex={'1'} textAlign={'left'}>
+                      {todo?.title}
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel pb={4}>{todo?.description}</AccordionPanel>
+                </AccordionItem>
+              </>
+            )
           })}
-        </UnorderedList>
+        </Accordion>
       </Layout>
     </>
   )
