@@ -1,4 +1,4 @@
-import { Button, Input } from '@chakra-ui/react'
+import { Button, Input, Textarea } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -31,7 +31,7 @@ const TodoForm: React.VFC<{ apiAddTodo: (params: TodoParams) => void }> = ({
         <Input {...register('title')} />
       </FormRow>
       <FormRow id={'description'} label={'説明'} errors={errors} isRequired>
-        <Input {...register('description')} />
+        <Textarea {...register('description')} />
       </FormRow>
       <Button isLoading={isSubmitting} type={'submit'}>
         登録する

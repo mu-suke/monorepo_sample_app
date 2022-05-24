@@ -8,6 +8,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { NextPage } from 'next'
+import ReactMarkdown from 'react-markdown'
 import Layout from '@/components/layout'
 import { useTodoQuery } from '@/generated/graphql'
 
@@ -37,7 +38,9 @@ const Todo: NextPage = () => {
                     </Box>
                     <AccordionIcon />
                   </AccordionButton>
-                  <AccordionPanel pb={4}>{todo?.description}</AccordionPanel>
+                  <AccordionPanel pb={4}>
+                    <ReactMarkdown>{todo?.description || ''}</ReactMarkdown>
+                  </AccordionPanel>
                 </AccordionItem>
               </>
             )
