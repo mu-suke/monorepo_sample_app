@@ -1,0 +1,7 @@
+fragment todo on TodoOutput {
+  title
+  description
+  status
+  createdAt
+  updatedAt
+}

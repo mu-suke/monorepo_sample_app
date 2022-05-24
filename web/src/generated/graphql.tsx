@@ -18,17 +18,14 @@ export type Scalars = {
 };
 
 export type Auth = {
-  __typename?: 'Auth';
   userId: Scalars['String'];
 };
 
 export type HealthCheck = {
-  __typename?: 'HealthCheck';
   message: Scalars['String'];
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
   addTodo: TodoOutput;
   login: Auth;
 };
@@ -43,24 +40,38 @@ export type NewTodoInput = {
   title: Scalars['String'];
 };
 
+export type PageInfo = {
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+};
+
+export type PaginatedTodosOutput = {
+  edges: Array<Maybe<TodoOutputEdge>>;
+  pageInfo: PageInfo;
+};
+
 export type Query = {
-  __typename?: 'Query';
-  findAll: Array<Maybe<TodoOutput>>;
   healthCheck: HealthCheck;
+  todos: PaginatedTodosOutput;
 };
 
 
-export type QueryFindAllArgs = {
-  todos: TodosInput;
+export type QueryTodosArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
 };
 
 export type TodoOutput = {
-  __typename?: 'TodoOutput';
   createdAt: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
   status: TodoStatus;
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
+};
+
+export type TodoOutputEdge = {
+  cursor?: Maybe<Scalars['String']>;
+  node: TodoOutput;
 };
 
 export enum TodoStatus {
@@ -69,36 +80,57 @@ export enum TodoStatus {
   New = 'NEW'
 }
 
-export type TodosInput = {
-  limit?: InputMaybe<Scalars['Float']>;
-  offset?: InputMaybe<Scalars['Float']>;
-};
-
-export type LoginMutationVariables = Exact<{ [key: string]: never; }>;
+export type LoginVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Auth', userId: string } };
+export type Login = { login: { userId: string } };
 
-export type HealthCheckQueryVariables = Exact<{ [key: string]: never; }>;
+export type PaginatedTodos = { edges: Array<{ node: { title: string, description?: string | null, status: TodoStatus, createdAt: any, updatedAt: any } } | null>, pageInfo: { endCursor?: string | null, hasNextPage: boolean } };
+
+export type Todo = { title: string, description?: string | null, status: TodoStatus, createdAt: any, updatedAt: any };
+
+export type HealthCheckVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HealthCheckQuery = { __typename?: 'Query', healthCheck: { __typename?: 'HealthCheck', message: string } };
+export type HealthCheck = { healthCheck: { message: string } };
 
-export type TodoQueryVariables = Exact<{
-  todos: TodosInput;
+export type TodosVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type TodoQuery = { __typename?: 'Query', findAll: Array<{ __typename?: 'TodoOutput', title: string, description?: string | null } | null> };
+export type Todos = { todos: { edges: Array<{ node: { title: string, description?: string | null, status: TodoStatus, createdAt: any, updatedAt: any } } | null>, pageInfo: { endCursor?: string | null, hasNextPage: boolean } } };
 
-export type AddTodoMutationVariables = Exact<{
+export type AddTodoVariables = Exact<{
   newTodo: NewTodoInput;
 }>;
 
 
-export type AddTodoMutation = { __typename?: 'Mutation', addTodo: { __typename?: 'TodoOutput', title: string, description?: string | null } };
+export type AddTodo = { addTodo: { title: string, description?: string | null } };
 
-
+export const Todo = gql`
+    fragment todo on TodoOutput {
+  title
+  description
+  status
+  createdAt
+  updatedAt
+}
+    `;
+export const PaginatedTodos = gql`
+    fragment paginatedTodos on PaginatedTodosOutput {
+  edges {
+    node {
+      ...todo
+    }
+  }
+  pageInfo {
+    endCursor
+    hasNextPage
+  }
+}
+    ${Todo}`;
 export const LoginDocument = gql`
     mutation Login {
   login {
@@ -107,8 +139,8 @@ export const LoginDocument = gql`
 }
     `;
 
-export function useLoginMutation() {
-  return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
+export function useLogin() {
+  return Urql.useMutation<Login, LoginVariables>(LoginDocument);
 };
 export const HealthCheckDocument = gql`
     query HealthCheck {
@@ -118,20 +150,19 @@ export const HealthCheckDocument = gql`
 }
     `;
 
-export function useHealthCheckQuery(options?: Omit<Urql.UseQueryArgs<HealthCheckQueryVariables>, 'query'>) {
-  return Urql.useQuery<HealthCheckQuery>({ query: HealthCheckDocument, ...options });
+export function useHealthCheck(options?: Omit<Urql.UseQueryArgs<HealthCheckVariables>, 'query'>) {
+  return Urql.useQuery<HealthCheck>({ query: HealthCheckDocument, ...options });
 };
-export const TodoDocument = gql`
-    query Todo($todos: TodosInput!) {
-  findAll(todos: $todos) {
-    title
-    description
+export const TodosDocument = gql`
+    query Todos($first: Int, $after: String) {
+  todos(first: $first, after: $after) {
+    ...paginatedTodos
   }
 }
-    `;
+    ${PaginatedTodos}`;
 
-export function useTodoQuery(options: Omit<Urql.UseQueryArgs<TodoQueryVariables>, 'query'>) {
-  return Urql.useQuery<TodoQuery>({ query: TodoDocument, ...options });
+export function useTodos(options?: Omit<Urql.UseQueryArgs<TodosVariables>, 'query'>) {
+  return Urql.useQuery<Todos>({ query: TodosDocument, ...options });
 };
 export const AddTodoDocument = gql`
     mutation AddTodo($newTodo: NewTodoInput!) {
@@ -142,6 +173,6 @@ export const AddTodoDocument = gql`
 }
     `;
 
-export function useAddTodoMutation() {
-  return Urql.useMutation<AddTodoMutation, AddTodoMutationVariables>(AddTodoDocument);
+export function useAddTodo() {
+  return Urql.useMutation<AddTodo, AddTodoVariables>(AddTodoDocument);
 };

@@ -1,7 +1,6 @@
-query Todo($todos: TodosInput!) {
-  findAll(todos: $todos) {
-    title
-    description
+query Todos($first: Int, $after: String) {
+  todos(first: $first, after: $after) {
+    ...paginatedTodos
   }
 }
 

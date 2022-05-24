@@ -1,0 +1,11 @@
+fragment paginatedTodos on PaginatedTodosOutput {
+  edges {
+    node {
+      ...todo
+    }
+  }
+  pageInfo {
+    endCursor
+    hasNextPage
+  }
+}
