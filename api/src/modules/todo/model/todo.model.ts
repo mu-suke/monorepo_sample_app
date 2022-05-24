@@ -1,5 +1,7 @@
 import { Field, InputType, ObjectType, registerEnumType } from '@nestjs/graphql'
+import * as admin from 'firebase-admin'
 import { PaginationArgs } from '@/models/pagination/pagination'
+import { Paginated, PaginatedInput } from '@/modules/common/pagination.model'
 
 export enum TodoStatus {
   NEW,
@@ -12,19 +14,22 @@ registerEnumType(TodoStatus, {
   name: 'TodoStatus',
 })
 
-// ObjectTypeデコレータを使用することで、定義したmodelを元にschemaが自動生成される
+export type TodoOutputProps = {
+  title: string
+  description: string
+  status: number
+  createdAt: admin.firestore.Timestamp
+  updatedAt: admin.firestore.Timestamp
+}
+
 @ObjectType()
 export class TodoOutput {
-  // ここはString型で良いのでReturnTypeFuncを引数に与えない
   @Field()
   title: string
 
-  // nullを許容するためオプションを指定
-  // オプションを指定しない限り、nullは許容されない（String!型になる）
   @Field({ nullable: true })
   description: string
 
-  // GraphQLに存在しない型(TodoStatus)を指定する場合は、ReturnTypeFuncを引数に与える
   @Field(() => TodoStatus)
   status: TodoStatus
 
@@ -33,6 +38,14 @@ export class TodoOutput {
 
   @Field()
   updatedAt: Date
+
+  constructor(props: TodoOutputProps) {
+    this.title = props.title
+    this.description = props.description
+    this.status = props.status
+    this.createdAt = props.createdAt.toDate()
+    this.updatedAt = props.updatedAt.toDate()
+  }
 }
 
 @InputType()
@@ -46,3 +59,9 @@ export class NewTodoInput {
 
 @InputType()
 export class TodosInput extends PaginationArgs {}
+
+@ObjectType()
+export class PaginatedTodosInput extends PaginatedInput {}
+
+@ObjectType()
+export class PaginatedTodosOutput extends Paginated(TodoOutput) {}

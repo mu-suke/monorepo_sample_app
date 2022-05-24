@@ -25,9 +25,19 @@ input NewTodoInput {
   title: String!
 }
 
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+}
+
+type PaginatedTodosOutput {
+  edges: [TodoOutputEdge]!
+  pageInfo: PageInfo!
+}
+
 type Query {
-  findAll(todos: TodosInput!): [TodoOutput]!
   healthCheck: HealthCheck!
+  todos(after: String, first: Int = 10): PaginatedTodosOutput!
 }
 
 type TodoOutput {
@@ -38,13 +48,13 @@ type TodoOutput {
   updatedAt: DateTime!
 }
 
+type TodoOutputEdge {
+  cursor: String
+  node: TodoOutput!
+}
+
 enum TodoStatus {
   COMPLETE
   IN_PROGRESS
   NEW
-}
-
-input TodosInput {
-  limit: Float = 5
-  offset: Float = 0
 }

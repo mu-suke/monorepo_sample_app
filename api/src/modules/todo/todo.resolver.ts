@@ -1,17 +1,22 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { NewTodoInput, TodoOutput, TodosInput } from './models/todo.models'
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {
+  NewTodoInput,
+  PaginatedTodosOutput,
+  TodoOutput,
+} from './model/todo.model'
 import { TodoService } from './todo.service'
 
 @Resolver()
 export class TodoResolver {
   constructor(private todoService: TodoService) {}
-  // QueryデコレータでQueryを定義
-  // 第一引数にReturnTypeFuncを指定し、型を定義。ここではTodoの配列を指定。
-  // 第二引数にオプションとして{ nullable: 'items' }を与えることでから配列を許容する。[Todo]!と同義。
-  // デフォルトでは [Todo!]! になる。
-  @Query(() => [TodoOutput], { nullable: 'items' })
-  findAll(@Args('todos') todos: TodosInput) {
-    return this.todoService.findAll(todos)
+
+  @Query(() => PaginatedTodosOutput)
+  todos(
+    @Args('first', { type: () => Int, defaultValue: 10 }) first: number,
+    @Args('after', { nullable: true }) after: string
+  ): Promise<PaginatedTodosOutput> {
+    const args = { first, after }
+    return this.todoService.paginatedTodos(args)
   }
 
   @Mutation(() => TodoOutput)
