@@ -4,20 +4,23 @@
   extends: ["config:base"],
   baseBranches: ["main"],
   timezone: "Asia/Tokyo",
-  // 月曜日にPRレビューしてマージする想定
   schedule: ['every weekend'],
   labels: ["renovate"],
   rangeStrategy: "pin",
   reviewers: ["mu-suke"],
   reviewersSampleSize: 1,
-  // 開発チームの数に依存
   prConcurrentLimit: 5,
   packageRules: [
     {
-      /*
-      cypress/baseはNode.jsのバージョンに対応
-        - Node.jsはActive LTSで固定して手動更新
-      */
+      "matchUpdateTypes": "major",
+      "addLabels": ["major"]
+    },
+    {
+      "matchUpdateTypes": ["patch", "pin"],
+      "automerge": true,
+      "addLabels": ["patch", "automerge"]
+    },
+    {
       matchDatasources: ["docker"],
       matchPackageNames: ["cypress/base"],
       enabled: false
